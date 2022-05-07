@@ -13,6 +13,7 @@ public class Main {
 
         Scanner consoleInput = new Scanner(System.in);
         String command = "";
+        String fileName = "";
 
         //System.out.print("Enter command: "); // на същия ред ще иска да се въведе команда
        // command = consoleInput.nextLine();
@@ -22,7 +23,7 @@ public class Main {
             String action = commandInfo[0];
 
             if (action.contains("open")) {
-                String fileName = commandInfo[1];
+                fileName = commandInfo[1];
                // System.out.println("Function Open File");
 
                 try {
@@ -51,7 +52,20 @@ public class Main {
                // System.out.println(fileName);// file path!!!
             }
 
-            if (action.contains("help")){
+            if (action.contains("saveas")) {
+                File source = new File(fileName);
+                File newDestination = new File(commandInfo[1]);
+
+                boolean bool = source.renameTo(newDestination);
+                if (bool) {
+                    System.out.println("File moved successfully!");
+                }else {
+                    System.out.println("Unable to move the file");
+                }
+            }
+
+
+            if (action.contains("help")) {
 //                System.out.println("---------");
 //                System.out.println("HELP MENU");
 //                System.out.println("---------");
@@ -62,6 +76,7 @@ public class Main {
                 System.out.println("SaveAs <file> \t\t saves the currently open file in <file>");
                 System.out.println("Help \t\t\t     prints this information");
                 System.out.println("Exit \t\t\t     exists the program");
+                System.out.println("");
             }
 
             System.out.print("Enter command: ");
